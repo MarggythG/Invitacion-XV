@@ -1,0 +1,10 @@
+# Google Apps Script (solo referencia, no se necesita en el sitio)
+google-apps-script.js
+
+# Docs de desarrollo
+CAMBIOS_RAPIDOS.md
+PERSONALIZACION.md
+
+# OS
+Thumbs.db
+.DS_Store

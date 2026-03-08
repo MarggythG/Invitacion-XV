@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación XV Años - Alicia en el País de las Maravillas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Dancing Script', cursive;
+            z-index: 10;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .stars-background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== SOBRE / CARTA ===== */
+        .envelope-container {
+            position: relative;
+            z-index: 10;
+            width: 90vw;
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            min-height: 100vh;
+        }
+
+        /* --- SOBRE --- */
+        .envelope {
+            width: 100%;
+            position: relative;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+
+        .envelope img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+        }
+
+        .envelope-text {
+            position: absolute;
+            top: 32%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 70%;
+            pointer-events: none;
+        }
+
+        .envelope-text h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.17rem;
+            color: #4a2c0a;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.4);
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .envelope-hint {
+            font-size: 0.58rem;
+            color: #6b3a1f;
+            margin-top: 8px;
+            font-style: italic;
+            animation: blink 2s infinite;
+        }
+
+        .envelope.opened {
+            transform: scale(0.9) translateY(-30px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- CARTA --- */
+        .letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateY(40px);
+            width: 80.5%;
+            height: 69vh;
+            max-height: 523px;
+            opacity: 0;
+            transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .letter.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .letter-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+        }
+
+        .letter-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 90px 65px 120px 75px;
+        }
+
+        /* Secciones de la carta */
+        .letter-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .letter-section.active {
+            display: flex;
+        }
+
+        /* Sección 1: Invitación + Countdown */
+        .section-invitacion .invite-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.85rem;
+            color: #3a1f00;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
+            max-width: 100%;
+            width: 100%;
+            text-align: justify;
+        }
+
+        .section-invitacion .invite-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.4rem;
+            color: #8b1a1a;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.4);
+            width: 100%;
+            text-align: center;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .countdown-item {
+            background: rgba(74, 44, 10, 0.15);
+            border: 1px solid rgba(74, 44, 10, 0.25);
+            border-radius: 10px;
+            padding: 8px 12px;
+            min-width: 55px;
+            text-align: center;
+            backdrop-filter: blur(2px);
+        }
+
+        .countdown-number {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.08rem;
+            color: #4a2c0a;
+            font-weight: bold;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.36rem;
+            color: #6b3a1f;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        /* Sección 2: Celebración */
+        .section-celebracion .celebracion-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2rem;
+            color: #4a2c0a;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-celebracion .detail-card {
+            background: rgba(74, 44, 10, 0.1);
+            border: 1px solid rgba(74, 44, 10, 0.2);
+            border-radius: 10px;
+            padding: 10px 12px;
+            width: 100%;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(2px);
+        }
+
+        .section-celebracion .detail-card .detail-icon {
+            font-size: 1.1rem;
+        }
+
+        .section-celebracion .detail-card .detail-info .detail-label {
+            font-size: 0.5rem;
+            color: #8b6914;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-celebracion .detail-card .detail-info .detail-value {
+            font-size: 0.7rem;
+            color: #3a1f00;
+            font-family: 'Dancing Script', cursive;
+            margin-top: 2px;
+        }
+
+        .letter-nav-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.44rem;
+            color: #6b3a1f;
+            font-style: italic;
+            animation: blink 2s infinite;
+            z-index: 3;
+        }
+
+        /* Secciones genéricas de la carta */
+        .section-generic .section-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .section-generic .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2rem;
+            color: #4a2c0a;
+            margin-bottom: 12px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-generic .section-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.90rem;
+            color: #3a1f00;
+            line-height: 1.5;
+            text-align: justify;
+            max-width: 100%;
+            width: 100%;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOutUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Partículas flotantes */
+        .floating-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            z-index: 5;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 2rem;
+            animation: float-particle 6s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-80px) translateX(30px);
+                opacity: 0;
+            }
+        }
+
+        /* Intro Screen */
+        .intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
+        }
+
+        .intro-screen.hiding {
+            pointer-events: none;
+        }
+
+        .intro-screen.hidden {
+            display: none;
+        }
+
+        .intro-gif {
+            width: 60vw;
+            max-width: 280px;
+            animation: introFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.6));
+        }
+
+        .intro-text {
+            color: #c084fc;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            font-style: italic;
+            animation: blink 2s infinite;
+            text-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+        }
+
+        @keyframes introFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-15px) scale(1.03);
+            }
+        }
+
+        /* Clases de partículas removidas - ahora se usa WebGL fluid splash */
+
+        /* ===== EFECTO ESCRITURA PLUMA ===== */
+
+        /* Ocultar texto antes de que la animación de escritura comience */
+        .letter-section:not(.writing-started) .invite-text,
+        .letter-section:not(.writing-started) .invite-name,
+        .letter-section:not(.writing-started) .celebracion-title,
+        .letter-section:not(.writing-started) .detail-label,
+        .letter-section:not(.writing-started) .detail-value,
+        .letter-section:not(.writing-started) .section-title,
+        .letter-section:not(.writing-started) .section-text,
+        .letter-section:not(.writing-started) .detail-info a {
+            visibility: hidden;
+        }
+
+        .quill-cursor {
+            position: absolute;
+            font-size: 1.3rem;
+            pointer-events: none;
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform: rotate(-130deg) scaleX(-1);
+            filter: drop-shadow(0 2px 4px rgba(74, 44, 10, 0.4));
+        }
+
+        .quill-cursor.writing {
+            opacity: 1;
+        }
+
+        /* Efecto de tinta: las letras aparecen con un sutil fade de tinta */
+        .ink-char {
+            display: inline;
+            opacity: 0;
+            transition: opacity 0.06s ease;
+        }
+
+        .ink-char.visible {
+            opacity: 1;
+        }
+
+        /* Salpicadura de tinta sutil al inicio de cada párrafo */
+        .ink-splatter {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(58, 31, 0, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: inkFade 1.5s ease forwards;
+        }
+
+        @keyframes inkFade {
+            0% {
+                opacity: 1;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.5);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+            }
+        }
+
+        /* Elemento que ya terminó de escribirse no necesita el cursor */
+        .writing-done .quill-cursor {
+            opacity: 0;
+        }
+
+        /* ===== BOTÓN Y MODAL RSVP ===== */
+        .rsvp-open-btn {
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: rgba(74, 44, 10, 0.2);
+            border: 2px solid rgba(139, 105, 20, 0.5);
+            border-radius: 20px;
+            color: #4a2c0a;
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
+        }
+        .rsvp-open-btn:hover {
+            background: rgba(74, 44, 10, 0.35);
+            transform: scale(1.05);
+        }
+        .letter-section:not(.writing-done) .rsvp-open-btn {
+            visibility: hidden;
+            opacity: 0;
+        }
+        .letter-section.writing-done .rsvp-open-btn {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .rsvp-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .rsvp-modal.active { display: flex; }
+
+        .rsvp-modal-content {
+            background: linear-gradient(145deg, #f5e6d3, #ede0d4, #e6d5c3);
+            border-radius: 15px;
+            padding: 30px 25px;
+            width: 90vw;
+            max-width: 380px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+            border: 2px solid rgba(139, 105, 20, 0.3);
+        }
+
+        .rsvp-close-btn {
+            position: absolute;
+            top: 8px; right: 12px;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #6b3a1f;
+            cursor: pointer;
+            line-height: 1;
+            padding: 5px;
+        }
+
+        .rsvp-modal-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: #4a2c0a;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .rsvp-step { display: none; }
+        .rsvp-step.active { display: block; }
+
+        .rsvp-label {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.82rem;
+            color: #4a2c0a;
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        .rsvp-required { color: #8b1a1a; font-weight: bold; }
+
+        .rsvp-input, .rsvp-select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1.5px solid rgba(74, 44, 10, 0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.5);
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.8rem;
+            color: #3a1f00;
+            margin-bottom: 12px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .rsvp-input:focus, .rsvp-select:focus {
+            border-color: rgba(139, 105, 20, 0.6);
+        }
+        .rsvp-input::placeholder { color: rgba(74, 44, 10, 0.4); }
+
+        .rsvp-radio-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .rsvp-radio-option { flex: 1; position: relative; }
+        .rsvp-radio-option input[type="radio"] {
+            position: absolute; opacity: 0; width: 0; height: 0;
+        }
+        .rsvp-radio-label {
+            display: block;
+            padding: 8px 10px;
+            text-align: center;
+            border: 1.5px solid rgba(74, 44, 10, 0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.3);
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.75rem;
+            color: #4a2c0a;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .rsvp-radio-option input[type="radio"]:checked + .rsvp-radio-label {
+            background: rgba(74, 44, 10, 0.2);
+            border-color: rgba(139, 105, 20, 0.6);
+            font-weight: 700;
+        }
+
+        .rsvp-companions-section { margin-bottom: 12px; }
+        .rsvp-companion-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .rsvp-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(74, 44, 10, 0.2);
+            border: 2px solid rgba(139, 105, 20, 0.5);
+            border-radius: 20px;
+            color: #4a2c0a;
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+        .rsvp-btn:hover { background: rgba(74, 44, 10, 0.35); }
+
+        .rsvp-back-btn {
+            display: block;
+            margin: 8px auto 0;
+            background: none;
+            border: none;
+            color: #6b3a1f;
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.72rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .rsvp-message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        .rsvp-message.success {
+            background: rgba(34, 139, 34, 0.15);
+            border: 1.5px solid rgba(34, 139, 34, 0.3);
+            color: #2d5a1e;
+        }
+        .rsvp-message.error {
+            background: rgba(178, 34, 34, 0.15);
+            border: 1.5px solid rgba(178, 34, 34, 0.3);
+            color: #8b1a1a;
+        }
+        .rsvp-message.info {
+            background: rgba(70, 130, 180, 0.15);
+            border: 1.5px solid rgba(70, 130, 180, 0.3);
+            color: #2c5282;
+        }
+
+        .rsvp-guest-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2rem;
+            color: #8b1a1a;
+            text-align: center;
+            margin-bottom: 3px;
+        }
+        .rsvp-guest-type {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.7rem;
+            color: #8b6914;
+            text-align: center;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        /* ===== RESPONSIVE MÓVIL ===== */
+        @media (max-width: 480px) {
+            .letter {
+                width: 85%;
+                height: 75vh;
+                max-height: 560px;
+            }
+
+            .letter-content {
+                padding: 60px 45px 80px 55px;
+            }
+
+            .section-invitacion .invite-text {
+                font-size: 0.72rem;
+                line-height: 1.4;
+                margin-bottom: 12px;
+            }
+
+            .section-invitacion .invite-name {
+                font-size: 1.1rem;
+                margin-bottom: 6px;
+            }
+
+            .countdown {
+                gap: 6px;
+                margin-top: 8px;
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
+
+            .countdown-item {
+                padding: 5px 8px;
+                min-width: 42px;
+                border-radius: 8px;
+            }
+
+            .countdown-number {
+                font-size: 0.85rem;
+            }
+
+            .countdown-label {
+                font-size: 0.32rem;
+            }
+
+            .section-celebracion .celebracion-title {
+                font-size: 0.95rem;
+                margin-bottom: 10px;
+            }
+
+            .section-celebracion .detail-card {
+                padding: 7px 8px;
+                margin-bottom: 5px;
+                gap: 6px;
+                border-radius: 8px;
+            }
+
+            .section-celebracion .detail-card .detail-icon {
+                font-size: 0.85rem;
+            }
+
+            .section-celebracion .detail-card .detail-info .detail-label {
+                font-size: 0.38rem;
+            }
+
+            .section-celebracion .detail-card .detail-info .detail-value {
+                font-size: 0.55rem;
+            }
+
+            .section-celebracion .detail-card .detail-info a {
+                font-size: 0.5rem !important;
+            }
+
+            .section-generic .section-icon {
+                font-size: 1.5rem;
+                margin-bottom: 6px;
+            }
+
+            .section-generic .section-title {
+                font-size: 0.95rem;
+                margin-bottom: 8px;
+            }
+
+            .section-generic .section-text {
+                font-size: 0.72rem;
+                line-height: 1.4;
+            }
+
+            .letter-nav-hint {
+                bottom: 12px;
+                font-size: 0.38rem;
+            }
+
+            .rsvp-modal-content {
+                padding: 25px 18px;
+                max-height: 90vh;
+            }
+            .rsvp-modal-title { font-size: 1.3rem; }
+            .rsvp-open-btn { font-size: 0.75rem; padding: 8px 20px; }
+            .rsvp-label { font-size: 0.75rem; }
+            .rsvp-input, .rsvp-select { font-size: 0.72rem; padding: 7px 10px; }
+            .rsvp-radio-label { font-size: 0.68rem; padding: 7px 8px; }
+            .rsvp-btn { font-size: 0.78rem; }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Pantalla de Introducción -->
+    <div class="intro-screen" id="introScreen">
+        <img src="sonriente.gif" alt="Gato Sonriente" class="intro-gif">
+        <p class="intro-text">Toca para entrar...</p>
+    </div>
+
+    <!-- Audio de fondo -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="Fondo-Sonido.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Video de fondo -->
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="background.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Splash Cursor Effect Canvas -->
+    <canvas id="splashCanvas" style="position: fixed; top: 0; left: 0; z-index: 15; pointer-events: none; display: block; width: 100vw; height: 100vh;"></canvas>
+    <!-- Splash Cursor Effect - cargar aquí para que fluidSplat esté disponible -->
+    <script src="splashCursor.js"></script>
+
+    <div class="stars-background" id="starsBackground"></div>
+
+    <div class="envelope-container" id="envelopeContainer">
+        <!-- SOBRE -->
+        <div class="envelope" id="envelope">
+            <img src="sobreAlice.png" alt="Sobre">
+            <div class="envelope-text">
+                <h2> Te invito a un mundo mágico </h2>
+                <p class="envelope-hint">Toca para abrir...</p>
+            </div>
+        </div>
+
+        <!-- CARTA -->
+        <div class="letter" id="letter">
+            <img src="carta alice.jpg" alt="Carta" class="letter-bg">
+            <div class="letter-content">
+                <!-- Sección 1: Invitación + Countdown -->
+                <div class="letter-section active" id="sectionInvitacion">
+                    <p class="invite-text">¡No te pierdas el té más importante del año!</p>
+                    <p class="invite-name">Sara Juliana Zarate</p>
+                    <p class="invite-text">Te invito a celebrar mis 15 años en un mundo de maravillas</p>
+                    <div class="countdown" id="countdown">
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="countDays">--</span>
+                            <span class="countdown-label">Días</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="countHours">--</span>
+                            <span class="countdown-label">Horas</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="countMinutes">--</span>
+                            <span class="countdown-label">Min</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="countSeconds">--</span>
+                            <span class="countdown-label">Seg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 2: Celebración -->
+                <div class="letter-section" id="sectionCelebracion">
+                    <h3 class="celebracion-title">🎉 Celebración 🎉</h3>
+                    <div class="detail-card">
+                        <span class="detail-icon">📅</span>
+                        <div class="detail-info">
+                            <p class="detail-label">Fecha</p>
+                            <p class="detail-value">Lunes, 13 de Junio de 2026</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <span class="detail-icon">🕐</span>
+                        <div class="detail-info">
+                            <p class="detail-label">Hora</p>
+                            <p class="detail-value">5:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <span class="detail-icon">📍</span>
+                        <div class="detail-info">
+                            <p class="detail-label">Lugar</p>
+                            <p class="detail-value">Hotel Andima</p>
+                            <a href="https://maps.app.goo.gl/ed11p13AAqXLfgSh6" target="_blank" style="font-family: 'Dancing Script', cursive; font-size: 0.67rem; color: #8b1a1a; text-decoration: underline; margin-top: 4px; display: inline-block;">📌 Ver ubicación en Google Maps</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 3: Dress Code -->
+                <div class="letter-section section-generic" id="sectionDressCode">
+                    <span class="section-icon">👗</span>
+                    <h3 class="section-title">Dress Code</h3>
+                    <p class="section-text">Etiqueta rigurosa. Por favor, no llegues tarde y evita vestir de azul... ¡no queremos molestar a la Reina!</p>
+                </div>
+
+                <!-- Sección 4: Obsequio -->
+                <div class="letter-section section-generic" id="sectionObsequio">
+                    <span class="section-icon">💌</span>
+                    <h3 class="section-title">Lluvia de Sobres</h3>
+                    <p class="section-text">Si deseas hacerme un presente, un sobre con el corazón será suficiente para mis próximas aventuras.</p>
+                </div>
+
+                <!-- Sección 5: Confirmación -->
+                <div class="letter-section section-generic" id="sectionConfirmacion">
+                    <span class="section-icon">📩</span>
+                    <h3 class="section-title">Confirmación</h3>
+                    <p class="section-text">¡Confirma tu asistencia a esta mágica celebración!</p>
+                    <button class="rsvp-open-btn" onclick="openRSVPModal()">Confirmar Asistencia ✉️</button>
+                </div>
+            </div>
+            <p class="letter-nav-hint" id="letterHint">Toca para continuar...</p>
+        </div>
+    </div>
+
+    <!-- Modal RSVP -->
+    <div class="rsvp-modal" id="rsvpModal" onclick="if(event.target===this)closeRSVPModal()">
+        <div class="rsvp-modal-content">
+            <button class="rsvp-close-btn" onclick="closeRSVPModal()">✕</button>
+            <h2 class="rsvp-modal-title">📩 Confirmación</h2>
+
+            <!-- Formulario -->
+            <div id="rsvpForm">
+                <label class="rsvp-label">Nombre completo <span class="rsvp-required">*</span></label>
+                <input type="text" class="rsvp-input" id="rsvpNombre" placeholder="Nombre y apellido" autocomplete="off">
+
+                <label class="rsvp-label">Número de contacto</label>
+                <input type="tel" class="rsvp-input" id="rsvpTelefono" placeholder="Ej: 300 123 4567">
+
+                <label class="rsvp-label">¿Asistirás a la celebración? <span class="rsvp-required">*</span></label>
+                <div class="rsvp-radio-group">
+                    <div class="rsvp-radio-option">
+                        <input type="radio" name="rsvpAsistencia" id="rsvpSi" value="si" onchange="toggleCompanions(true)">
+                        <label class="rsvp-radio-label" for="rsvpSi">✨ Sí, asistiré</label>
+                    </div>
+                    <div class="rsvp-radio-option">
+                        <input type="radio" name="rsvpAsistencia" id="rsvpNo" value="no" onchange="toggleCompanions(false)">
+                        <label class="rsvp-radio-label" for="rsvpNo">😢 No podré asistir</label>
+                    </div>
+                </div>
+
+                <div class="rsvp-companions-section" id="companionsSection" style="display:none;">
+                    <label class="rsvp-label">Número de acompañantes</label>
+                    <select class="rsvp-select" id="numCompanions" onchange="updateCompanionFields()">
+                        <option value="0">0 - Sin acompañantes</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <label class="rsvp-label" id="companionNamesLabel" style="display:none;">Nombre(s) de acompañantes</label>
+                    <div class="rsvp-companion-fields" id="companionFields"></div>
+                </div>
+
+                <button class="rsvp-btn" id="rsvpSubmitBtn" onclick="submitRSVP()">Confirmar</button>
+            </div>
+
+            <!-- Resultado -->
+            <div id="rsvpResult" style="display:none;">
+                <div id="rsvpResultContent"></div>
+                <button class="rsvp-btn" onclick="closeRSVPModal()" style="margin-top:15px;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Partículas flotantes -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Cursor de pluma -->
+    <div class="quill-cursor" id="quillCursor">🪶</div>
+
+    <script>
+        // ===== LÓGICA SOBRE → CARTA → SECCIONES =====
+        const envelope = document.getElementById('envelope');
+        const letter = document.getElementById('letter');
+        const letterHint = document.getElementById('letterHint');
+        const sections = document.querySelectorAll('.letter-section');
+        let currentSection = 0;
+        let envelopeOpened = false;
+
+        // Clic en el sobre: lo abre y muestra la carta
+        document.getElementById('envelopeContainer').addEventListener('click', function(e) {
+            if (!envelopeOpened) {
+                // Abrir sobre
+                envelope.classList.add('opened');
+                envelopeOpened = true;
+                setTimeout(() => {
+                    envelope.style.display = 'none';
+                    letter.classList.add('visible');
+                }, 600);
+                return;
+            }
+
+            // Ya abierto: navegar entre secciones de la carta
+            if (!letter.classList.contains('visible')) return;
+
+            const totalSections = sections.length;
+            if (currentSection < totalSections - 1) {
+                // Ocultar sección actual con fade out
+                sections[currentSection].style.animation = 'fadeOutUp 0.4s ease forwards';
+                
+                setTimeout(() => {
+                    sections[currentSection].classList.remove('active');
+                    sections[currentSection].style.animation = '';
+                    currentSection++;
+                    sections[currentSection].classList.add('active');
+                    sections[currentSection].style.animation = 'fadeInUp 0.8s ease';
+                    
+                    // Animar escritura de la nueva sección
+                    setTimeout(() => animateWriting(sections[currentSection]), 600);
+                    
+                    // Ocultar hint en la última sección
+                    if (currentSection >= totalSections - 1) {
+                        letterHint.style.opacity = '0';
+                    }
+                }, 400);
+            }
+        });
+
+        // ===== COUNTDOWN =====
+        const targetDate = new Date('2026-06-15T17:00:00').getTime();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            
+            if (diff <= 0) {
+                document.getElementById('countDays').textContent = '0';
+                document.getElementById('countHours').textContent = '0';
+                document.getElementById('countMinutes').textContent = '0';
+                document.getElementById('countSeconds').textContent = '0';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countDays').textContent = days;
+            document.getElementById('countHours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('countMinutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('countSeconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // === ANIMACIÓN INTRO - ONDA EXPANSIVA FLUID SPLASH ===
+        const introScreen = document.getElementById('introScreen');
+        
+        introScreen.addEventListener('click', function(e) {
+            // Iniciar música de fondo al primer toque
+            const bgMusic = document.getElementById('bgMusic');
+            if (bgMusic) {
+                bgMusic.volume = 0.4;
+                bgMusic.play().catch(() => {});
+            }
+
+            const gif = introScreen.querySelector('.intro-gif');
+            const text = introScreen.querySelector('.intro-text');
+            const rect = gif.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Usar el efecto WebGL fluid splash como onda expansiva
+            if (window.fluidSplat && window.fluidCanvas) {
+                const canvas = window.fluidCanvas;
+                // Convertir posición del GIF a coordenadas del canvas (0-1)
+                const texX = centerX / canvas.width;
+                const texY = 1.0 - (centerY / canvas.height);
+                
+                // Tonos morados puros con más transparencia
+                const cheshireColors = [
+                    [0.12, 0.0, 0.25],  // morado profundo
+                    [0.15, 0.0, 0.3],   // morado medio
+                    [0.1, 0.0, 0.22],   // morado oscuro
+                    [0.08, 0.0, 0.18],  // índigo oscuro
+                    [0.18, 0.02, 0.32], // morado suave
+                    [0.14, 0.0, 0.28],  // violeta puro
+                    [0.09, 0.0, 0.2],   // morado noche
+                    [0.2, 0.04, 0.35],  // morado claro
+                ];
+                
+                // --- ONDA EXPANSIVA SUAVE: efecto humo ---
+                const waves = 3;
+                const splatsPerWave = 8;
+                
+                for (let wave = 0; wave < waves; wave++) {
+                    const delay = wave * 120; // cada onda sale un poco después
+                    
+                    setTimeout(() => {
+                        for (let i = 0; i < splatsPerWave; i++) {
+                            const angle = (Math.PI * 2 * i) / splatsPerWave + (Math.random() - 0.5) * 0.3;
+                            const force = 1500 + wave * 800 + Math.random() * 800;
+                            const dx = Math.cos(angle) * force;
+                            const dy = Math.sin(angle) * force;
+                            
+                            // Posición ligeramente desplazada del centro para cada splat
+                            const offsetX = Math.cos(angle) * 0.02 * (wave + 1);
+                            const offsetY = Math.sin(angle) * 0.02 * (wave + 1);
+                            
+                            const color = cheshireColors[Math.floor(Math.random() * cheshireColors.length)];
+                            const intensity = 0.6 + wave * 0.3;
+                            
+                            window.fluidSplat(
+                                texX + offsetX,
+                                texY + offsetY,
+                                dx, dy,
+                                [color[0] * intensity, color[1] * intensity, color[2] * intensity]
+                            );
+                        }
+                    }, delay);
+                }
+                
+                // Splats centrales suaves para humo central
+                for (let i = 0; i < 5; i++) {
+                    const delay = i * 80;
+                    setTimeout(() => {
+                        const angle = Math.random() * Math.PI * 2;
+                        const force = 800 + Math.random() * 2000;
+                        const color = cheshireColors[Math.floor(Math.random() * cheshireColors.length)];
+                        window.fluidSplat(
+                            texX + (Math.random() - 0.5) * 0.03,
+                            texY + (Math.random() - 0.5) * 0.03,
+                            Math.cos(angle) * force,
+                            Math.sin(angle) * force,
+                            [color[0] * 1.2, color[1] * 1.2, color[2] * 1.2]
+                        );
+                    }, delay);
+                }
+            }
+            
+            // El canvas del fluid debe estar visible sobre el intro
+            const splashCanvas = document.getElementById('splashCanvas');
+            if (splashCanvas) {
+                splashCanvas.style.zIndex = '10001';
+                // Restaurar z-index después de la animación
+                setTimeout(() => {
+                    splashCanvas.style.zIndex = '15';
+                }, 2000);
+            }
+            
+            // El gato se desvanece con blur (se esfuma)
+            gif.style.transition = 'filter 0.8s ease, opacity 0.8s ease, transform 0.8s ease';
+            gif.style.filter = 'blur(30px) brightness(2)';
+            gif.style.opacity = '0';
+            gif.style.transform = 'scale(1.3)';
+            
+            text.style.transition = 'opacity 0.3s ease';
+            text.style.opacity = '0';
+            
+            // Desvanecer el fondo negro del intro
+            setTimeout(() => {
+                introScreen.style.transition = 'opacity 0.8s ease';
+                introScreen.style.opacity = '0';
+                introScreen.classList.add('hiding');
+            }, 400);
+            
+            // Eliminar el intro después de la animación
+            setTimeout(() => {
+                introScreen.classList.add('hidden');
+            }, 1400);
+        });
+
+        // También permitir toque en móvil
+        introScreen.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 0) {
+                introScreen.click();
+            }
+        }, { passive: true });
+
+        
+        // ===== EFECTO ESCRITURA PLUMA =====
+        const quillCursor = document.getElementById('quillCursor');
+        const animatedSections = new Set(); // Track which sections already played
+
+        // Velocidad de escritura (ms por carácter)
+        const WRITE_SPEED = 35;
+        const WRITE_SPEED_FAST = 20; // para elementos más largos
+
+        function getTextElements(section) {
+            // Obtener todos los elementos de texto dentro de la sección
+            const elements = [];
+            const selectors = [
+                '.invite-text', '.invite-name',
+                '.celebracion-title', '.detail-label', '.detail-value',
+                '.section-title', '.section-text',
+                'a'
+            ];
+            
+            selectors.forEach(sel => {
+                section.querySelectorAll(sel).forEach(el => {
+                    // No animar iconos de detalle ni emojis solos
+                    if (el.closest('.detail-icon') || el.closest('.section-icon')) return;
+                    if (el.textContent.trim().length > 0) {
+                        elements.push(el);
+                    }
+                });
+            });
+
+            return elements;
+        }
+
+        function wrapCharsInElement(el) {
+            const text = el.textContent;
+            el.innerHTML = '';
+            el.dataset.originalText = text;
+            
+            const chars = [];
+            for (let i = 0; i < text.length; i++) {
+                const span = document.createElement('span');
+                span.className = 'ink-char';
+                span.textContent = text[i];
+                el.appendChild(span);
+                chars.push(span);
+            }
+            return chars;
+        }
+
+        function moveQuillTo(charSpan) {
+            if (!charSpan || !quillCursor) return;
+            const rect = charSpan.getBoundingClientRect();
+            quillCursor.style.left = (rect.right + 2) + 'px';
+            quillCursor.style.top = (rect.top - 8) + 'px';
+        }
+
+        function createInkSplatter(x, y) {
+            const count = 2 + Math.floor(Math.random() * 3);
+            for (let i = 0; i < count; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'ink-splatter';
+                dot.style.left = (x + (Math.random() - 0.5) * 12) + 'px';
+                dot.style.top = (y + (Math.random() - 0.5) * 12) + 'px';
+                document.body.appendChild(dot);
+                setTimeout(() => dot.remove(), 1500);
+            }
+        }
+
+        async function animateWriting(section) {
+            const sectionId = section.id;
+            if (animatedSections.has(sectionId)) return;
+            animatedSections.add(sectionId);
+
+            const textElements = getTextElements(section);
+            if (textElements.length === 0) return;
+
+            // Preparar: envolver todos los caracteres
+            const allCharGroups = textElements.map(el => wrapCharsInElement(el));
+
+            // Hacer visibles los elementos (los chars siguen con opacity:0)
+            section.classList.add('writing-started');
+
+            // Mostrar la pluma
+            quillCursor.classList.add('writing');
+
+            // Animar elemento por elemento
+            for (let g = 0; g < allCharGroups.length; g++) {
+                const chars = allCharGroups[g];
+                const el = textElements[g];
+                const speed = chars.length > 40 ? WRITE_SPEED_FAST : WRITE_SPEED;
+
+                // Pequeña salpicadura de tinta al inicio de cada párrafo
+                if (chars.length > 0) {
+                    const firstRect = chars[0].getBoundingClientRect();
+                    createInkSplatter(firstRect.left, firstRect.top);
+                }
+
+                // Escribir char por char
+                for (let i = 0; i < chars.length; i++) {
+                    chars[i].classList.add('visible');
+                    moveQuillTo(chars[i]);
+
+                    // Pequeña pausa variable para naturalidad
+                    let pause = speed;
+                    const ch = chars[i].textContent;
+                    if (ch === '.' || ch === '!' || ch === '¡') pause = speed * 4;
+                    else if (ch === ',' || ch === ';') pause = speed * 2;
+                    else if (ch === ' ') pause = speed * 0.5;
+
+                    await new Promise(r => setTimeout(r, pause));
+                }
+
+                // Pausa entre elementos
+                if (g < allCharGroups.length - 1) {
+                    await new Promise(r => setTimeout(r, 200));
+                }
+            }
+
+            // Ocultar la pluma al terminar
+            quillCursor.classList.remove('writing');
+            section.classList.add('writing-done');
+        }
+
+        // Modificar la lógica de secciones para integrar el efecto de escritura
+        // Animar la primera sección cuando la carta se muestra
+        const originalLetterObserver = new MutationObserver((mutations) => {
+            mutations.forEach(m => {
+                if (m.target === letter && letter.classList.contains('visible')) {
+                    // La carta se hizo visible, animar la primera sección
+                    setTimeout(() => {
+                        const activeSection = document.querySelector('.letter-section.active');
+                        if (activeSection) animateWriting(activeSection);
+                    }, 800); // esperar a que termine la animación de entrada
+                }
+            });
+        });
+        originalLetterObserver.observe(letter, { attributes: true, attributeFilter: ['class'] });
+
+        // ===== CONEXIÓN CON GOOGLE SHEETS =====
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKfD2YnNMtkBqfLaQ0RP_Q5jOMSqgJUd6uMunNGO6w150mrzqywiSYDAVFdbRWXOHD/exec';
+
+        // ===== UTILIDADES =====
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ===== MODAL RSVP =====
+        function openRSVPModal() {
+            document.getElementById('rsvpModal').classList.add('active');
+            resetRSVPForm();
+        }
+
+        function closeRSVPModal() {
+            document.getElementById('rsvpModal').classList.remove('active');
+        }
+
+        function resetRSVPForm() {
+            document.getElementById('rsvpForm').style.display = 'block';
+            document.getElementById('rsvpResult').style.display = 'none';
+            document.getElementById('rsvpNombre').value = '';
+            document.getElementById('rsvpTelefono').value = '';
+            document.querySelectorAll('#rsvpModal input[type="radio"]').forEach(r => r.checked = false);
+            document.getElementById('numCompanions').value = '0';
+            document.getElementById('companionFields').innerHTML = '';
+            document.getElementById('companionsSection').style.display = 'none';
+            document.getElementById('companionNamesLabel').style.display = 'none';
+        }
+
+        // ===== ACOMPAÑANTES =====
+        function toggleCompanions(show) {
+            document.getElementById('companionsSection').style.display = show ? 'block' : 'none';
+            if (!show) {
+                document.getElementById('numCompanions').value = '0';
+                document.getElementById('companionFields').innerHTML = '';
+                document.getElementById('companionNamesLabel').style.display = 'none';
+            }
+        }
+
+        function updateCompanionFields() {
+            const num = parseInt(document.getElementById('numCompanions').value) || 0;
+            const container = document.getElementById('companionFields');
+            const label = document.getElementById('companionNamesLabel');
+            container.innerHTML = '';
+            label.style.display = num > 0 ? 'block' : 'none';
+
+            for (let i = 0; i < num; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'rsvp-input';
+                input.placeholder = 'Nombre acompañante ' + (i + 1);
+                input.id = 'companion_' + i;
+                input.style.marginBottom = '6px';
+                container.appendChild(input);
+            }
+        }
+
+        // ===== ENVIAR FORMULARIO =====
+        function submitRSVP() {
+            const nombre = document.getElementById('rsvpNombre').value.trim();
+            const telefono = document.getElementById('rsvpTelefono').value.trim();
+            const asistencia = document.querySelector('input[name="rsvpAsistencia"]:checked');
+
+            if (!nombre) { alert('Por favor, ingresa tu nombre completo.'); return; }
+            if (!asistencia) { alert('Por favor, indica si asistirás.'); return; }
+
+            const confirmado = asistencia.value === 'si';
+            const acompanantes = [];
+
+            if (confirmado) {
+                const num = parseInt(document.getElementById('numCompanions').value) || 0;
+                for (let i = 0; i < num; i++) {
+                    const nameInput = document.getElementById('companion_' + i);
+                    const compName = nameInput ? nameInput.value.trim() : '';
+                    if (compName) acompanantes.push(compName);
+                }
+            }
+
+            // Deshabilitar botón
+            const btn = document.getElementById('rsvpSubmitBtn');
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+
+            // Enviar a Google Sheets usando un formulario oculto (iframe)
+            var campos = {
+                nombre: nombre,
+                telefono: telefono,
+                confirmado: confirmado ? 'Si' : 'No',
+                acompanantes: acompanantes.join(', ')
+            };
+
+            var iframe = document.createElement('iframe');
+            iframe.name = 'rsvp_iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = APPS_SCRIPT_URL;
+            form.target = 'rsvp_iframe';
+
+            // Enviar cada campo como input separado
+            Object.keys(campos).forEach(function(key) {
+                var inp = document.createElement('input');
+                inp.type = 'hidden';
+                inp.name = key;
+                inp.value = campos[key];
+                form.appendChild(inp);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+
+            // No podemos leer la respuesta del iframe (CORS), 
+            // pero el envío siempre funciona. Mostrar éxito tras un momento.
+            setTimeout(function() {
+                form.remove();
+                iframe.remove();
+
+                // Mostrar resultado
+                let msg = '<p class="rsvp-guest-name">' + escapeHTML(nombre) + '</p>';
+                if (confirmado) {
+                    msg += '<div class="rsvp-message success">✅ ¡Tu asistencia ha sido confirmada!';
+                    if (acompanantes.length > 0) {
+                        msg += '<br>Acompañantes registrados:<br><strong>' + acompanantes.map(escapeHTML).join(', ') + '</strong>';
+                    }
+                    msg += '<br>¡Te esperamos con mucha ilusión! 🎉</div>';
+                } else {
+                    msg += '<div class="rsvp-message info">Tu respuesta ha sido registrada.<br>Lamentamos que no puedas asistir. 💛</div>';
+                }
+
+                document.getElementById('rsvpForm').style.display = 'none';
+                document.getElementById('rsvpResultContent').innerHTML = msg;
+                document.getElementById('rsvpResult').style.display = 'block';
+
+                btn.textContent = 'Confirmar';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
