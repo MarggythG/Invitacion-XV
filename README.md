@@ -76,10 +76,10 @@ En `index.html`, busca y modifica:
 
 | Dato | Valor actual | Dónde buscarlo |
 |------|-------------|----------------|
-| Nombre | Sara Juliana Zarate | Clase `.invite-name` |
+| Nombre | Sara Juliana Zarate Forero | Clase `.invite-name` |
 | Fecha | Lunes, 13 de Junio de 2026 | Sección Celebración |
-| Hora | 5:00 PM | Sección Celebración |
-| Lugar | Hotel Andima | Sección Celebración |
+| Hora | 7:30 PM | Sección Celebración |
+| Lugar | Castillo del monosorio | Sección Celebración |
 | Mapa | Google Maps link | `href` en sección Lugar |
 | Teléfono | +34 123 456 789 | Sección Confirmación |
 | Fecha countdown | 2026-06-15T17:00:00 | Variable `targetDate` en JS |
